@@ -8,13 +8,14 @@ void prettyPrintOrderBook(OrderBook ob)
     std::vector<Order> asks = ob.get_asks();
     sort(asks.begin(), asks.end(), [](const Order &a, const Order &b)
          {
-             return a.price > b.price; // todo: this is temporary for order book display purpose
+             return a.price < b.price; // todo: this is temporary for order book display purpose
          });
 
     sort(bids.begin(), bids.end(), [](const Order &a, const Order &b)
          {
              return a.price > b.price; // todo: this is temporary for order book display purpose
          });
+
     // Calculate column widths
     size_t sideWidth = 4; // "BUY" or "SELL"
     size_t idWidth = std::string("Order ID").length();
@@ -48,15 +49,17 @@ void prettyPrintOrderBook(OrderBook ob)
     std::cout << "ASKS:\n";
     int displayLimit = 4;
     int displayed = 0;
-    //fixme : displays only 4 WORST ASKS
-    for (const Order &ask : asks)
+    // fixme : displays only 4 WORST ASKS
+
+    for(int i = std::min(static_cast<int>(asks.size()), displayLimit)-1; i >=0; --i)
     {
+        Order ask = asks[i];
         std::cout << "| " << std::setw(sideWidth) << "SELL" << " | "
                   << std::setw(idWidth) << ask.id << " | "
                   << std::setw(priceWidth) << ask.price << " | "
                   << std::setw(quantityWidth) << ask.quantity << " | "
                   << std::setw(timestampWidth) << ask.timestamp << " |" << std::endl;
-        if (++displayed >= displayLimit)
+        if (displayed >= displayLimit)
             break;
     }
 

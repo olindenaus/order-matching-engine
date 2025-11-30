@@ -49,8 +49,8 @@ int main()
     static int orderIdCounter = 0;
     OrderBook ob = OrderBook();
 
-    cout << "OrderBook created." << endl;
     printCommands();
+    
     bool running = true;
     while (running)
     {
