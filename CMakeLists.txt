@@ -4,4 +4,4 @@ project(cpp_demo LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(app main.cpp OrderBook.cpp OrderBookPrinter.cpp)
+add_executable(app src/main.cpp src/OrderBook.cpp src/OrderBookPrinter.cpp)
